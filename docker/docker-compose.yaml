@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  mysql57:
+    image: mysql:5.7
+    restart: unless-stopped
+    container_name: mysql57
+    ports:
+      - "3357:3306"
+    environment:
+        MYSQL_ROOT_PASSWORD: rootPassword
+        MYSQL_DATABASE: crmdev
+
+  web:
+    build: .
+    ports:
+     - "8080:8080"
+    links: 
+      - mysql57
+  
+#docker system prune && docker build --no-cache . && docker-compose up
